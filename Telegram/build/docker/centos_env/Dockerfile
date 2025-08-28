@@ -26,7 +26,7 @@ RUN dnf -y install epel-release \
 		libffi-devel fontconfig-devel freetype-devel libX11-devel wayland-devel \
 		alsa-lib-devel pulseaudio-libs-devel mesa-libGL-devel mesa-libEGL-devel \
 		mesa-libgbm-devel libdrm-devel vulkan-devel libva-devel libvdpau-devel \
-		glib2-devel at-spi2-core-devel gtk3-devel boost1.78-devel fmt-devel \
+		glib2-devel at-spi2-core-devel gtk3-devel boost1.78-devel fmt-devel python3-pip \
 	&& dnf clean all
 
 RUN python3 -m pip install meson ninja
