@@ -36,10 +36,16 @@ jobs:
 
       - name: Docker image build.
         run: |
+          sudo apt update
+          curl -sSL https://install.python-poetry.org | python3 -
           cd Telegram/build/docker/centos_env
           poetry install
-          DEBUG= LTO= poetry run gen_dockerfile | DOCKER_BUILDKIT=1 docker build -t $IMAGE_TAG -
+          DOCKERFILE=$(DEBUG= LTO= poetry run gen_dockerfile)
+          echo "$DOCKERFILE" > Dockerfile
 
-      - name: Push the Docker image.
-        if: ${{ github.ref_name == github.event.repository.default_branch }}
-        run: docker push $IMAGE_TAG
+      - name: Libraries.
+        uses: docker/build-push-action@v6
+        with:
+           context: Telegram/build/docker/centos_env
+           tags: ${{ env.IMAGE_TAG }}
+           push: true
