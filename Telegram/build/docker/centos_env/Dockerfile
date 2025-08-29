@@ -34,6 +34,8 @@ RUN python3.11 -m pip install --upgrade pip \
 ENV PYTHON=python3.11
 RUN echo set debuginfod enabled on > /opt/rh/{{ TOOLSET }}/root/etc/gdbinit.d/00-debuginfod.gdb
 RUN adduser user
+RUN printf '%s\n' '#!/bin/sh' 'exec python3.11 -m meson "$@"' > /usr/local/bin/meson \
+ && chmod +x /usr/local/bin/meson
 
 WORKDIR {{ LibrariesPath }}
 ENV AR gcc-ar
