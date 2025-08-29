@@ -29,8 +29,8 @@ RUN dnf -y install epel-release \
 		glib2-devel at-spi2-core-devel gtk3-devel boost1.78-devel fmt-devel python3-pip \
 	&& dnf clean all
 
-RUN python3.11 -m pip install --upgrade pip \
- && python3.11 -m pip install meson ninja
+RUN python3.11 -m pip install --upgrade --root-user-action pip \
+ && python3.11 -m pip install --root-user-action meson ninja
 ENV PYTHON=python3.11
 RUN echo set debuginfod enabled on > /opt/rh/{{ TOOLSET }}/root/etc/gdbinit.d/00-debuginfod.gdb
 RUN adduser user
